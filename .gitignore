@@ -18,6 +18,10 @@ out/
 .env.local
 .env.*.local
 
+# Data
+frontend/data/
+backend/data/
+
 # IDE
 .vscode/
 .idea/

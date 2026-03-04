@@ -1,86 +1,114 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import ServiceGrid from "@/components/ServiceGrid";
+import { engagements as api } from "@/lib/api";
+import type { Engagement } from "@/lib/types";
+import { SERVICE_CATEGORIES, ENGAGEMENT_STATUSES } from "@/lib/types";
+
 export default function Home() {
+  const [recent, setRecent] = useState<Engagement[]>([]);
+
+  useEffect(() => {
+    api.list().then((data) => setRecent(data.slice(0, 5)));
+  }, []);
+
   return (
-    <div className="min-h-screen flex flex-col font-[family-name:var(--font-geist-sans)]">
-      {/* Nav */}
-      <header className="flex items-center justify-between px-8 py-5 border-b border-black/10 dark:border-white/10">
-        <span className="text-lg font-semibold tracking-tight">
-          AI&nbsp;Consult
-        </span>
-        <nav className="flex gap-6 text-sm">
-          <a href="#features" className="hover:underline">
-            Features
-          </a>
-          <a href="#cta" className="hover:underline">
-            Get Started
-          </a>
-        </nav>
-      </header>
-
+    <div className="px-10 py-8 max-w-6xl mx-auto space-y-10">
       {/* Hero */}
-      <main className="flex-1 flex flex-col items-center justify-center text-center px-6 py-24 gap-6">
-        <h1 className="text-4xl sm:text-6xl font-bold tracking-tight max-w-2xl">
-          Expert consulting,
-          <br />
-          delivered on demand
+      <div className="space-y-2">
+        <h1 className="text-3xl font-bold text-[var(--navy)]">
+          Consulting Platform
         </h1>
-        <p className="text-lg text-foreground/70 max-w-xl">
-          Get actionable business insights in minutes, not weeks. AI&#8209;powered
-          analysis paired with deep domain expertise — available whenever you
-          need it.
+        <p className="text-gray-500 text-base max-w-2xl">
+          Supporting strategy consultants across the full project lifecycle —
+          from engagement setup to final board-level presentation.
         </p>
-        <a
-          href="#cta"
-          className="mt-4 inline-flex items-center rounded-full bg-foreground text-background px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
+      </div>
+
+      {/* New Engagement CTA */}
+      <div className="flex items-center gap-4">
+        <Link
+          href="/engagements/new"
+          className="inline-flex items-center gap-2 bg-[var(--navy)] text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-[var(--navy-light)] transition-colors"
         >
-          Start a consultation &rarr;
-        </a>
-      </main>
+          <svg viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+            <path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" />
+          </svg>
+          New Engagement
+        </Link>
+        <Link
+          href="/engagements"
+          className="text-sm text-[var(--navy-light)] hover:underline"
+        >
+          View all engagements
+        </Link>
+      </div>
 
-      {/* Features */}
-      <section
-        id="features"
-        className="grid sm:grid-cols-3 gap-8 px-8 py-20 max-w-5xl mx-auto"
-      >
-        {[
-          {
-            title: "Instant Analysis",
-            desc: "Upload your data or describe your challenge and receive a structured analysis within minutes.",
-          },
-          {
-            title: "Domain Experts",
-            desc: "Access specialists in strategy, operations, finance, and technology — on your schedule.",
-          },
-          {
-            title: "Actionable Reports",
-            desc: "Every engagement delivers clear recommendations you can act on immediately.",
-          },
-        ].map((f) => (
-          <div key={f.title} className="space-y-2">
-            <h3 className="font-semibold text-lg">{f.title}</h3>
-            <p className="text-sm text-foreground/60">{f.desc}</p>
-          </div>
-        ))}
-      </section>
-
-      {/* CTA */}
-      <section
-        id="cta"
-        className="flex flex-col items-center gap-4 px-6 py-20 bg-foreground/[0.03]"
-      >
-        <h2 className="text-2xl font-bold">Ready to get started?</h2>
-        <p className="text-foreground/60 text-sm max-w-md text-center">
-          Sign up for early access and be the first to experience consulting
-          reimagined.
+      {/* Service Categories Grid */}
+      <section className="space-y-4 pl-10">
+        <h2 className="text-lg font-semibold text-[var(--navy)]">
+          Start from a service area
+        </h2>
+        <p className="text-sm text-gray-500">
+          Click a service to create a new engagement pre-configured for that
+          type of work.
         </p>
-        <button className="rounded-full bg-foreground text-background px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity">
-          Request early access
-        </button>
+        <ServiceGrid />
       </section>
 
-      {/* Footer */}
-      <footer className="text-center text-xs text-foreground/40 py-6">
-        &copy; {new Date().getFullYear()} AI Consult. All rights reserved.
-      </footer>
+      {/* Recent Engagements */}
+      {recent.length > 0 && (
+        <section className="space-y-4">
+          <h2 className="text-lg font-semibold text-[var(--navy)]">
+            Recent engagements
+          </h2>
+          <div className="grid gap-3">
+            {recent.map((eng) => {
+              const cat = SERVICE_CATEGORIES.find(
+                (c) => c.key === eng.service_category
+              );
+              const statusDef = ENGAGEMENT_STATUSES.find(
+                (s) => s.value === eng.status
+              );
+              return (
+                <Link
+                  key={eng.id}
+                  href={`/engagements/${eng.id}`}
+                  className="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-5 py-4 hover:border-[var(--navy)]/30 hover:shadow-sm transition-all"
+                >
+                  <div className="space-y-1">
+                    <div className="font-medium text-[var(--navy)]">
+                      {eng.title}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      {eng.client_name}
+                      {cat && (
+                        <span className="ml-2 text-gray-400">
+                          {cat.label}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    {statusDef && (
+                      <span
+                        className={`text-xs px-2.5 py-1 rounded-full font-medium ${statusDef.color}`}
+                      >
+                        {statusDef.label}
+                      </span>
+                    )}
+                    <span className="text-xs text-gray-400">
+                      {new Date(eng.updated_at).toLocaleDateString()}
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

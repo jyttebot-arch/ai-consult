@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Sidebar from "@/components/Sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Consult — Consulting as a Service",
+  title: "AI Consult — Consulting Platform",
   description:
-    "On-demand expert consulting powered by AI. Get actionable insights for your business in minutes, not weeks.",
+    "A platform to support strategy consultants across the full project lifecycle.",
 };
 
 export default function RootLayout({
@@ -28,7 +29,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Sidebar />
+        <main className="ml-[var(--sidebar-width)] min-h-screen">
+          {children}
+        </main>
       </body>
     </html>
   );
