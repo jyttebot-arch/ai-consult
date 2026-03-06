@@ -79,3 +79,14 @@ class Hypothesis(Base):
     updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
 
     engagement = relationship("Engagement", back_populates="hypotheses")
+
+
+class AISettings(Base):
+    __tablename__ = "ai_settings"
+
+    id = Column(Integer, primary_key=True, index=True)
+    provider = Column(String(50), default="openai", nullable=False)
+    model = Column(String(255), default="gpt-4o", nullable=False)
+    api_key = Column(Text, nullable=True)
+    base_url = Column(String(500), nullable=True)
+    updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)

@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.database import engine, Base
-from app.routers import engagements, hypotheses
+from app.routers import engagements, hypotheses, ai_settings, ai_chat
 
 # Create tables on startup
 Base.metadata.create_all(bind=engine)
@@ -20,6 +20,8 @@ app.add_middleware(
 
 app.include_router(engagements.router)
 app.include_router(hypotheses.router)
+app.include_router(ai_settings.router)
+app.include_router(ai_chat.router)
 
 
 @app.get("/health")

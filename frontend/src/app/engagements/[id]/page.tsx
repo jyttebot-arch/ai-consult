@@ -7,6 +7,7 @@ import type { Engagement } from "@/lib/types";
 import { SERVICE_CATEGORIES, ENGAGEMENT_STATUSES } from "@/lib/types";
 import PhaseTimeline from "@/components/PhaseTimeline";
 import HypothesisBoard from "@/components/HypothesisBoard";
+import AIAssistant from "@/components/AIAssistant";
 
 export default function EngagementDashboard({
   params,
@@ -188,6 +189,14 @@ export default function EngagementDashboard({
             onChange={load}
           />
         </div>
+      </section>
+
+      {/* AI Assistant */}
+      <section className="space-y-4">
+        <h2 className="text-lg font-semibold text-[var(--navy)]">
+          AI Assistant
+        </h2>
+        <AIAssistant engagementId={engagement.id} />
       </section>
 
       {/* Module quick links (placeholders) */}

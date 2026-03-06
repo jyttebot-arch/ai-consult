@@ -108,3 +108,42 @@ class EngagementListOut(EngagementBase):
 
     class Config:
         from_attributes = True
+
+
+# ---------- AI Settings ----------
+
+class AISettingsUpdate(BaseModel):
+    provider: str | None = None
+    model: str | None = None
+    api_key: str | None = None
+    base_url: str | None = None
+
+
+class AISettingsOut(BaseModel):
+    id: int
+    provider: str
+    model: str
+    api_key_set: bool
+    base_url: str | None
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+# ---------- AI Chat ----------
+
+class ChatMessage(BaseModel):
+    role: str  # "user" or "assistant"
+    content: str
+
+
+class AIChatRequest(BaseModel):
+    messages: list[ChatMessage]
+    engagement_id: int | None = None
+
+
+class AIChatResponse(BaseModel):
+    message: ChatMessage
+    model: str
+    provider: str

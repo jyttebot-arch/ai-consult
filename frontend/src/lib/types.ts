@@ -91,3 +91,52 @@ export const HYPOTHESIS_STATUSES = [
   { value: "confirmed", label: "Confirmed", color: "bg-emerald-100 text-emerald-700" },
   { value: "rejected", label: "Rejected", color: "bg-red-100 text-red-700" },
 ] as const;
+
+// ---------- AI ----------
+
+export interface AISettings {
+  id: number;
+  provider: string;
+  model: string;
+  api_key_set: boolean;
+  base_url: string | null;
+  updated_at: string;
+}
+
+export interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+
+export const AI_PROVIDERS = [
+  {
+    key: "openai",
+    label: "OpenAI",
+    models: ["gpt-4o", "gpt-4o-mini", "o1", "o3-mini"],
+    needsBaseUrl: false,
+  },
+  {
+    key: "anthropic",
+    label: "Anthropic",
+    models: ["claude-sonnet-4-20250514", "claude-haiku-35-20241022", "claude-opus-4-20250514"],
+    needsBaseUrl: false,
+  },
+  {
+    key: "google",
+    label: "Google",
+    models: ["gemini/gemini-2.0-flash", "gemini/gemini-2.5-pro"],
+    needsBaseUrl: false,
+  },
+  {
+    key: "mistral",
+    label: "Mistral",
+    models: ["mistral/mistral-large-latest", "mistral/mistral-small-latest"],
+    needsBaseUrl: false,
+  },
+  {
+    key: "ollama",
+    label: "Ollama (Local)",
+    models: ["ollama/llama3", "ollama/mistral", "ollama/codellama"],
+    needsBaseUrl: true,
+  },
+] as const;
