@@ -199,14 +199,26 @@ export default function EngagementDashboard({
         <AIAssistant engagementId={engagement.id} />
       </section>
 
-      {/* Module quick links (placeholders) */}
+      {/* Module quick links */}
       <section className="space-y-4">
         <h2 className="text-lg font-semibold text-[var(--navy)]">
           Modules
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          {/* Intelligence Engine — active */}
+          <Link
+            href={`/engagements/${id}/interviews`}
+            className="bg-white border border-[var(--navy)]/20 rounded-lg p-4 space-y-1 hover:border-[var(--navy)]/40 hover:shadow-sm transition-all"
+          >
+            <div className="text-2xl">&#128269;</div>
+            <div className="text-sm font-medium text-[var(--navy)]">
+              Intelligence Engine
+            </div>
+            <div className="text-xs text-gray-500">Interviews, coding &amp; analysis</div>
+            <div className="text-xs text-emerald-600 font-medium">Active</div>
+          </Link>
+          {/* Remaining modules — placeholders */}
           {[
-            { name: "Intelligence Engine", desc: "Research & interviews", icon: "&#128269;" },
             { name: "Framework Studio", desc: "Dilemmas & scenarios", icon: "&#9881;" },
             { name: "Presentation Builder", desc: "Slides & narrative", icon: "&#128196;" },
             { name: "Roadmap Engine", desc: "Initiatives & KPIs", icon: "&#128640;" },

@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 const NAV_ITEMS = [
   { href: "/", label: "Home", icon: HomeIcon },
   { href: "/engagements", label: "Engagements", icon: BriefcaseIcon },
-  { href: "/specification", label: "Specification", icon: DocumentIcon },
   { href: "/settings", label: "Settings", icon: SettingsIcon },
+  { href: "/new-item", label: "New Item", icon: NewItemIcon },
 ];
 
 export default function Sidebar() {
@@ -74,18 +74,6 @@ function BriefcaseIcon() {
   );
 }
 
-function DocumentIcon() {
-  return (
-    <svg viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-      <path
-        fillRule="evenodd"
-        d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
-}
-
 function SettingsIcon() {
   return (
     <svg viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
@@ -94,6 +82,14 @@ function SettingsIcon() {
         d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
         clipRule="evenodd"
       />
+    </svg>
+  );
+}
+
+function NewItemIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+      <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
     </svg>
   );
 }

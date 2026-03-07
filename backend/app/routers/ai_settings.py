@@ -14,6 +14,13 @@ PROVIDER_MODELS = {
     "anthropic": ["claude-sonnet-4-20250514", "claude-haiku-35-20241022", "claude-opus-4-20250514"],
     "google": ["gemini/gemini-2.0-flash", "gemini/gemini-2.5-pro"],
     "mistral": ["mistral/mistral-large-latest", "mistral/mistral-small-latest"],
+    "openrouter": [
+        "openrouter/anthropic/claude-sonnet-4",
+        "openrouter/anthropic/claude-haiku-4",
+        "openrouter/google/gemini-2.5-pro",
+        "openrouter/openai/gpt-4o",
+        "openrouter/meta-llama/llama-4-maverick",
+    ],
     "ollama": ["ollama/llama3", "ollama/mistral", "ollama/codellama"],
 }
 
